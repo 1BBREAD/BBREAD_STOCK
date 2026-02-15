@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from screening import growth
 from inqr import corpNameCodeInqr
+from db import db_con
 
 st.set_page_config(page_title="Value Screener", layout="wide")
 
@@ -25,25 +26,26 @@ quarter = st.selectbox(
     format_func=lambda x: "선택 안함" if x is None else f"{x}분기"
 )
 
+client_db = db_con()
 corp_code = None
 
 if corp_name.strip():
-    corp_code = get_corp_code_by_name(corp_name.strip())
+    corp_code = get_corp_code_by_name(client_db, corp_name.strip())
 
 st.write("corp_code :", corp_code)
 
 if st.button("스크리닝 실행") :
 
   # 1번 쿼리 : 특정 연도만 필요
-  result1 = growth.get_revenue_growth_yoy(year, corp_code)
+  result1 = growth.get_revenue_growth_yoy(client_db, year, revenue_growth, corp_code)
 
   result2 = None
   result3 = None
 
   # 2, 3번 쿼리 : 특정 연도 + 특정 분기 필요
   if quarter is not None:
-      result2 = growth.get_revenue_growth_yoy_quarter(year, quarter, corp_code)
-      result3 = growth.get_revenue_growth_qoq(year, quarter, corp_code)
+      result2 = growth.get_revenue_growth_yoy_quarter(client_db, year,revenue_growth, corp_code, quarter)
+      result3 = growth.get_revenue_growth_qoq(client_db, year,revenue_growth, corp_code, quarter)
     
   data = result1
   df = pd.DataFrame(data)
