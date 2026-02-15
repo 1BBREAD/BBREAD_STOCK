@@ -33,7 +33,7 @@ def get_revenue_growth_qoq( supabase, in_year, in_growth_rate, in_corp_code, in_
   return res.data
 
 def get_revenue_growth_yoy_quarter( supabase, in_year, in_growth_rate, in_corp_code, in_quarter ) :
-   in_base_year = in_year-1
+  in_base_year = in_year-1
   res = supabase.rpc(
         "get_revenue_growth_yoy_quarter",
         {
