@@ -27,12 +27,10 @@ quarter = st.selectbox(
 )
 
 client_db = con()
-corp_code = None
+corp_code = ''
 
 if corp_name.strip():
     corp_code = ic.get_corp_code_by_name(client_db, corp_name.strip())
-
-st.write("corp_code :", corp_code)
 
 if st.button("스크리닝 실행") :
     # 1번 쿼리 : 특정 연도만 필요 
