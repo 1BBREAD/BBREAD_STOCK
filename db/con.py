@@ -1,8 +1,6 @@
-from supabase import create_client
-
-SUPABASE_URL="https://lwktxccwsldfcxyamraz.supabase.co"
-SUPABASE_KEY="sb_publishable_pqiE6JU9ZYbg1wbaHSlRlQ_1Q-J-Iqx"
+import streamlit as st
+from st_supabase_connection import SupabaseConnection
 
 def db_con() :
-  supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+  supabase = st.connection("supabase",type=SupabaseConnection)
   return supabse
