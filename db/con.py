@@ -6,4 +6,4 @@ def con() :
   url = st.secrets["SUPABASE_URL"]
   key = st.secrets["SUPABASE_KEY"]
   supabase = create_client(url,key)
-  return supabse
+  return supabase
