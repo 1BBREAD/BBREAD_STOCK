@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import screening.growth as growth
 from inqr import corpNameCodeInqr
-from db import db_con
+from db import con
 
 st.set_page_config(page_title="Value Screener", layout="wide")
 
