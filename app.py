@@ -35,38 +35,35 @@ if corp_name.strip():
 st.write("corp_code :", corp_code)
 
 if st.button("스크리닝 실행") :
-
-  # 1번 쿼리 : 특정 연도만 필요
-  result1 = growth.get_revenue_growth_yoy(client_db, year, revenue_growth, corp_code)
-
-  result2 = None
-  result3 = None
-
-  # 2, 3번 쿼리 : 특정 연도 + 특정 분기 필요
-  if quarter is not None:
-      result2 = growth.get_revenue_growth_yoy_quarter(client_db, year,revenue_growth, corp_code, quarter)
-      result3 = growth.get_revenue_growth_qoq(client_db, year,revenue_growth, corp_code, quarter)
+    # 1번 쿼리 : 특정 연도만 필요 
+    result1 = growth.get_revenue_growth_yoy(client_db, year, revenue_growth, corp_code)
+    result2 = None
+    result3 = None
     
-  data = result1
-  df = pd.DataFrame(data)
-  df["growth"] = df["growth"].astype(float)
-  
-  df = df.rename(columns={
+    # 2, 3번 쿼리 : 특정 연도 + 특정 분기 필요
+    if quarter is not None:
+        result2 = growth.get_revenue_growth_yoy_quarter(client_db, year,revenue_growth, corp_code, quarter)
+        result3 = growth.get_revenue_growth_qoq(client_db, year,revenue_growth, corp_code, quarter) 
+        
+        st.write("1번 쿼리 결과", result1)
+        
+    data = result1
+    df = pd.DataFrame(data)
+    df["growth"] = df["growth"].astype(float)
+    
+    df = df.rename(columns={
     "corp_name": "기업명",
     "re_cur": "당기 매출",
     "re_base": "기준 매출",
     "growth": "증가율(%)"
-  })
-
-  st.dataframe(
-    df,
-    use_container_width=True,
+    })
+    
+    st.dataframe(df, use_container_width=True,
     column_config={
         "당기 매출": st.column_config.NumberColumn(format="%,d"),
         "기준 매출": st.column_config.NumberColumn(format="%,d"),
         "증가율(%)": st.column_config.NumberColumn(format="%.2f")
-    }
-)
+    })
 
 # st.write("1번 쿼리 결과", result1)
 # st.write("2번 쿼리 결과", result2)
