@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from screening import growth
+import screening.growth as growth
 from inqr import corpNameCodeInqr
 from db import db_con
 
