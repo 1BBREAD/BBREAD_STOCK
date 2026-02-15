@@ -32,17 +32,9 @@ corp_code = ''
 if corp_name.strip():
     corp_code = ic.get_corp_code_by_name(client_db, corp_name.strip())
 
-if st.button("스크리닝 실행") :
+if st.button("YoY 전년도 결산 대비") :
     # 1번 쿼리 : 특정 연도만 필요 
     result1 = growth.get_revenue_growth_yoy(client_db, year, revenue_growth, corp_code)
-    result2 = None
-    result3 = None
-    
-    # 2, 3번 쿼리 : 특정 연도 + 특정 분기 필요
-    if quarter is not None:
-        result2 = growth.get_revenue_growth_yoy_quarter(client_db, year,revenue_growth, corp_code, quarter)
-        result3 = growth.get_revenue_growth_qoq(client_db, year,revenue_growth, corp_code, quarter) 
-        
     if result1 :
         st.write("YoY 결산 증가 데이터", result1)
         data = result1
@@ -62,6 +54,9 @@ if st.button("스크리닝 실행") :
         "기준 매출": st.column_config.NumberColumn(format="%,d"),
         "증가율(%)": st.column_config.NumberColumn(format="%.2f")
         })
+if st.button("YoY 전분기 대비") :
+    result2 = growth.get_revenue_growth_yoy_quarter(client_db, year,revenue_growth, corp_code, quarter)
+
     if result2 :
         st.write(f"YoY {quarter}분기 전기 대비 증가 데이터")
         data = result2
@@ -81,6 +76,8 @@ if st.button("스크리닝 실행") :
         "기준 매출": st.column_config.NumberColumn(format="%,d"),
         "증가율(%)": st.column_config.NumberColumn(format="%.2f")
         })
+if st.button("QoQ 전분기 대비"):
+    result3 = growth.get_revenue_growth_qoq(client_db, year,revenue_growth, corp_code, quarter) 
     if result3 :
         st.write(f"QoQ {quarter}분기 전분기 대비 증가 데이터")
         data = result3
@@ -100,11 +97,3 @@ if st.button("스크리닝 실행") :
         "기준 매출": st.column_config.NumberColumn(format="%,d"),
         "증가율(%)": st.column_config.NumberColumn(format="%.2f")
         })
-        
-        
-
-
-# st.write("1번 쿼리 결과", result1)
-# st.write("2번 쿼리 결과", result2)
-# st.write("3번 쿼리 결과", result3)
-
