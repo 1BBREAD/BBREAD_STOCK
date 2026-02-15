@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import screening.growth as growth
 from inqr import corpNameCodeInqr
-from db import con
+from db.con import db_con
 
 st.set_page_config(page_title="Value Screener", layout="wide")
 
@@ -26,7 +26,7 @@ quarter = st.selectbox(
     format_func=lambda x: "선택 안함" if x is None else f"{x}분기"
 )
 
-client_db = con()
+client_db = db_con.con()
 corp_code = None
 
 if corp_name.strip():
