@@ -1,4 +1,6 @@
-def get_revenue_growth_yoy( supabase, in_year, in_base_year, in_growth_rate, in_corp_code ) :
+def get_revenue_growth_yoy( supabase, in_year, in_growth_rate, in_corp_code ) :
+  in_base_year = in_year - 1
+  
   res = supabase.rpc(
         "get_revenue_growth_yoy",
         {
@@ -10,12 +12,12 @@ def get_revenue_growth_yoy( supabase, in_year, in_base_year, in_growth_rate, in_
   ).execute()
   return res.data
 
-def get_revenue_growth_qoq( supabase, in_year, in_base_year, in_growth_rate, in_corp_code, in_quarter ) :
+def get_revenue_growth_qoq( supabase, in_year, in_growth_rate, in_corp_code, in_quarter ) :
   base_quarter = in_quarter-1
-  base_year = in_base_year
+  base_year = in_year
   if ( in_quarter == 1 ) :
     base_quarter = 4
-    base_year = in_base_year-1    
+    base_year = in_year-1    
   
   res = supabase.rpc(
         "get_revenue_growth_qoq",
@@ -30,7 +32,8 @@ def get_revenue_growth_qoq( supabase, in_year, in_base_year, in_growth_rate, in_
   ).execute()
   return res.data
 
-def get_revenue_growth_yoy_quarter( supabase, in_year, in_base_year, in_growth_rate, in_corp_code, in_quarter ) :
+def get_revenue_growth_yoy_quarter( supabase, in_year, in_growth_rate, in_corp_code, in_quarter ) :
+   in_base_year = in_year-1
   res = supabase.rpc(
         "get_revenue_growth_yoy_quarter",
         {
