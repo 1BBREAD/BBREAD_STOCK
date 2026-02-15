@@ -26,7 +26,7 @@ quarter = st.selectbox(
     format_func=lambda x: "선택 안함" if x is None else f"{x}분기"
 )
 
-client_db = db_con()
+client_db = con()
 corp_code = None
 
 if corp_name.strip():
