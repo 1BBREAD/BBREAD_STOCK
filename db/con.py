@@ -1,6 +1,9 @@
 import streamlit as st
-from st_supabase_connection import SupabaseConnection
+from supabase import create_client, Client
 
+@st.cache_resource
 def db_con() :
-  supabase = st.connection("supabase",type=SupabaseConnection)
+  url = st.secrets["SUPABASE_URL"]
+  key = st.secrets["SUPABASE_KEY"]
+  supabase = create_client(url,key)
   return supabse
