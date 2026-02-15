@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import screening.growth as growth
-from inqr import corpNameCodeInqr
+import inqr.corpNameCodeInqr as ic
 from db.con import con
 
 st.set_page_config(page_title="Value Screener", layout="wide")
@@ -30,7 +30,7 @@ client_db = con()
 corp_code = None
 
 if corp_name.strip():
-    corp_code = get_corp_code_by_name(client_db, corp_name.strip())
+    corp_code = ic.get_corp_code_by_name(client_db, corp_name.strip())
 
 st.write("corp_code :", corp_code)
 
