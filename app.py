@@ -43,25 +43,66 @@ if st.button("스크리닝 실행") :
         result2 = growth.get_revenue_growth_yoy_quarter(client_db, year,revenue_growth, corp_code, quarter)
         result3 = growth.get_revenue_growth_qoq(client_db, year,revenue_growth, corp_code, quarter) 
         
-        st.write("1번 쿼리 결과", result1)
-        
-    data = result1
-    df = pd.DataFrame(data)
-    df["growth"] = df["growth"].astype(float)
+    if result1 :
+        st.write("YoY 결산 증가 데이터", result1)
+        data = result1
+        df = pd.DataFrame(data)
+        df["growth"] = df["growth"].astype(float)
     
-    df = df.rename(columns={
-    "corp_name": "기업명",
-    "re_cur": "당기 매출",
-    "re_base": "기준 매출",
-    "growth": "증가율(%)"
-    })
+        df = df.rename(columns={
+        "corp_name": "기업명",
+        "re_cur": "당기 매출",
+        "re_base": "기준 매출",
+        "growth": "증가율(%)"
+        })
     
-    st.dataframe(df, use_container_width=True,
-    column_config={
+        st.dataframe(df, use_container_width=True,
+        column_config={
         "당기 매출": st.column_config.NumberColumn(format="%,d"),
         "기준 매출": st.column_config.NumberColumn(format="%,d"),
         "증가율(%)": st.column_config.NumberColumn(format="%.2f")
-    })
+        })
+    if result2 :
+        st.write(f"YoY {quarter}분기 전기 대비 증가 데이터")
+        data = result2
+        df = pd.DataFrame(data)
+        df["growth"] = df["growth"].astype(float)
+    
+        df = df.rename(columns={
+        "corp_name": "기업명",
+        "re_cur": "당기 매출",
+        "re_base": "기준 매출",
+        "growth": "증가율(%)"
+        })
+    
+        st.dataframe(df, use_container_width=True,
+        column_config={
+        "당기 매출": st.column_config.NumberColumn(format="%,d"),
+        "기준 매출": st.column_config.NumberColumn(format="%,d"),
+        "증가율(%)": st.column_config.NumberColumn(format="%.2f")
+        })
+    if result3 :
+        st.write(f"QoQ {quarter}분기 전분기 대비 증가 데이터")
+        data = result3
+        df = pd.DataFrame(data)
+        df["growth"] = df["growth"].astype(float)
+    
+        df = df.rename(columns={
+        "corp_name": "기업명",
+        "re_cur": "당기 매출",
+        "re_base": "기준 매출",
+        "growth": "증가율(%)"
+        })
+    
+        st.dataframe(df, use_container_width=True,
+        column_config={
+        "당기 매출": st.column_config.NumberColumn(format="%,d"),
+        "기준 매출": st.column_config.NumberColumn(format="%,d"),
+        "증가율(%)": st.column_config.NumberColumn(format="%.2f")
+        })
+        
+        
+
 
 # st.write("1번 쿼리 결과", result1)
 # st.write("2번 쿼리 결과", result2)
