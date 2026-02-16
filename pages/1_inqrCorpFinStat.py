@@ -44,7 +44,6 @@ if st.button("재무제표 조회"):
         rows = icf.get_financial_statement(
             client=client_db,
             corp_code=corp_code,
-            year=year,
             period_type=period_type
         )
 
