@@ -20,7 +20,7 @@ def get_financial_statement(client, corp_code, year, period_type):
         .eq("year", year)
         .eq("report_type", "CIS")
         .in_("quarter", quarters)
-        .not_.is_("amt", "null")
+        .not_.is_("revenue", "null")
         .execute()
     )
 
