@@ -41,7 +41,7 @@ if st.button("재무제표 조회"):
 
         period_type = "F" if period_label == "결산" else "Q"
 
-        rows = ic.get_financial_statement(
+        rows = icf.get_financial_statement(
             client=client_db,
             corp_code=corp_code,
             year=year,
