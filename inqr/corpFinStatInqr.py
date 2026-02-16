@@ -31,8 +31,7 @@ def get_financial_statement(client, corp_code, year, period_type):
         (
             r["corp_code"],
             r["year"],
-            r["quarter"],
-            r["account_cd"]
+            r["quarter"]
         )
         for r in cis_rows
     )
@@ -60,8 +59,7 @@ def get_financial_statement(client, corp_code, year, period_type):
         if (
             r["corp_code"],
             r["year"],
-            r["quarter"],
-            r["account_cd"]
+            r["quarter"]
         ) not in cis_key_set
     ]
 
@@ -76,8 +74,7 @@ def get_financial_statement(client, corp_code, year, period_type):
     result.sort(
         key=lambda x: (
             x["year"],
-            x["quarter"],
-            x["account_cd"]
+            x["quarter"]
         )
     )
 
