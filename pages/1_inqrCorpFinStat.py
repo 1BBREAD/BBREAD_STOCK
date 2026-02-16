@@ -83,7 +83,7 @@ if st.button("재무제표 조회"):
             corp_code=corp_code,
             period_type=period_type
         )
-        df_cis(row)
+        df_cis(rows)
 
 st.write("입력값 확인")
 st.write("기업명:", corp_name)
