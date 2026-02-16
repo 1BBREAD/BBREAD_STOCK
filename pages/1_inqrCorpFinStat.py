@@ -33,27 +33,6 @@ period_label = st.radio(
     "조회 구분",
     ["결산", "분기"]
 )
-if st.button("재무제표 조회"):
-
-    if corp_code is None:
-        st.error("기업명을 확인하세요.")
-    else:
-
-        period_type = "F" if period_label == "결산" else "Q"
-
-        rows = icf.get_financial_statement(
-            client=client_db,
-            corp_code=corp_code,
-            period_type=period_type
-        )
-        df_cis(row)
-
-
-
-st.write("입력값 확인")
-st.write("기업명:", corp_name)
-st.write("기업코드:", corp_code)
-st.write("연도:", year)
 
 def df_cis(rows) :
     if not rows:
@@ -90,4 +69,23 @@ def df_cis(rows) :
         df_t.columns = [ f"{y}년 {q}분기" for y, q in zip(df["year"], df["quarter"]) ]
 
         st.dataframe(df_t, use_container_width=True)
-    
+        
+if st.button("재무제표 조회"):
+
+    if corp_code is None:
+        st.error("기업명을 확인하세요.")
+    else:
+
+        period_type = "F" if period_label == "결산" else "Q"
+
+        rows = icf.get_financial_statement(
+            client=client_db,
+            corp_code=corp_code,
+            period_type=period_type
+        )
+        df_cis(row)
+
+st.write("입력값 확인")
+st.write("기업명:", corp_name)
+st.write("기업코드:", corp_code)
+st.write("연도:", year)
