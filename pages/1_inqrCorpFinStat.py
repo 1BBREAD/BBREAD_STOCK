@@ -29,7 +29,7 @@ year = st.number_input(
 #     [None, 1, 2, 3, 4],
 #     format_func=lambda x: "전체" if x is None else f"{x}분기"
 # )
-period_type = st.radio(
+period_label = st.radio(
     "조회 구분",
     ["결산", "분기"]
 )
