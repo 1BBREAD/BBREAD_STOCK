@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import inqr.corpNameCodeInqr as ic
+import inqr.corpFinStatInqr as icf
 from db.con import con
 
 st.set_page_config(layout="wide")
@@ -23,11 +24,46 @@ year = st.number_input(
     value=2024
 )
 
-quarter = st.selectbox(
-    "분기",
-    [None, 1, 2, 3, 4],
-    format_func=lambda x: "전체" if x is None else f"{x}분기"
+# quarter = st.selectbox(
+#     "분기",
+#     [None, 1, 2, 3, 4],
+#     format_func=lambda x: "전체" if x is None else f"{x}분기"
+# )
+period_type = st.radio(
+    "조회 구분",
+    ["결산", "분기"]
 )
+if st.button("재무제표 조회"):
+
+    if corp_code is None:
+        st.error("기업명을 확인하세요.")
+    else:
+
+        period_type = "F" if period_label == "결산" else "Q"
+
+        rows = get_financial_statement(
+            client=client_db,
+            corp_code=corp_code,
+            year=year,
+            period_type=period_type
+        )
+
+        if not rows:
+            st.info("조회 결과가 없습니다.")
+        else:
+            df = pd.DataFrame(rows)
+
+            # 보기 좋게 컬럼명 변경(필요 시)
+            df = df.rename(columns={
+                "corp_code": "기업코드",
+                "year": "연도",
+                "quarter": "분기",
+                "account_cd": "계정코드",
+                "report_type": "보고서구분",
+                "amt": "금액"
+            })
+
+            st.dataframe(df, use_container_width=True)
 
 st.write("입력값 확인")
 st.write("기업명:", corp_name)
