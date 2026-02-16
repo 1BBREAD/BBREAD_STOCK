@@ -46,6 +46,7 @@ if st.button("재무제표 조회"):
             corp_code=corp_code,
             period_type=period_type
         )
+        df_cis(row)
 
 
 
