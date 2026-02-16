@@ -47,24 +47,46 @@ if st.button("재무제표 조회"):
             period_type=period_type
         )
 
-        if not rows:
-            st.info("조회 결과가 없습니다.")
-        else:
-            df = pd.DataFrame(rows)
 
-            # 보기 좋게 컬럼명 변경(필요 시)
-            df = df.rename(columns={
-                "corp_code": "기업코드",
-                "year": "연도",
-                "quarter": "분기",
-                "account_cd": "계정코드",
-                "report_type": "보고서구분",
-                "amt": "금액"
-            })
-
-            st.dataframe(df, use_container_width=True)
 
 st.write("입력값 확인")
 st.write("기업명:", corp_name)
 st.write("기업코드:", corp_code)
 st.write("연도:", year)
+
+def df_cis(rows) :
+    if not rows:
+        st.info("조회 결과가 없습니다.")
+    else:
+        df = pd.DataFrame(rows)
+
+        # 화면에 쓸 컬럼만 정리
+        use_cols = [
+        "year",
+        "quarter",
+        "revenue",
+        "cost_sles",
+        "expenses",
+        "oper_income",
+        "profit_loss"
+        ]
+
+        df2 = df[use_cols]
+        # 행/열 뒤집기
+        df_t = df2.T
+
+        # 행 이름을 원하는 한글로 변경
+        df_t.index = [
+        "연도",
+        "분기",
+        "매출액",
+        "매출원가",
+        "판관비",
+        "영업이익",
+        "순이익"
+        ]
+        # 열 제목을 보기 좋게 (예: 2024-1Q 형태)
+        df_t.columns = [ f"{y}년 {q}분기" for y, q in zip(df["year"], df["quarter"]) ]
+
+        st.dataframe(df_t, use_container_width=True)
+    
