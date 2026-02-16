@@ -1,4 +1,4 @@
-def get_financial_statement(client, corp_code, year, period_type):
+def get_financial_statement(client, corp_code, period_type):
     """
     period_type : 'F' (결산) , 'Q' (분기 전체)
     """
@@ -17,7 +17,6 @@ def get_financial_statement(client, corp_code, year, period_type):
         client.table("fin_cis_q")
         .select("*")
         .eq("corp_code", corp_code)
-        .eq("year", year)
         .eq("report_type", "CIS")
         .in_("quarter", quarters)
         .not_.is_("revenue", "null")
@@ -43,7 +42,6 @@ def get_financial_statement(client, corp_code, year, period_type):
         client.table("fin_cis_q")
         .select("*")
         .eq("corp_code", corp_code)
-        .eq("year", year)
         .eq("report_type", "IS")
         .in_("quarter", quarters)
         .execute()
