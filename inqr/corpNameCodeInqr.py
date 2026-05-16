@@ -9,7 +9,7 @@ def get_corp_code_by_name(supabase, corp_name: str):
     res = supabase.rpc(
         "get_corpcode_from_name",
         {
-            "p_corp_name": '삼성전자'
+            "p_corp_name": corp_name
         }
     ).execute()
     return res.data[0]['corp_code']
