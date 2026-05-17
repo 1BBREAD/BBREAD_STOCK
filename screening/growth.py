@@ -6,8 +6,8 @@ def get_screen_financial_indicator( supabase, in_year, in_quarter, in_metric, in
             "p_year": in_year,
             "p_quarter": in_quarter,
             "p_metric": in_metric,
-            "p_condition" : in_condition
-            "p_corp_code" : in_corp_code
+            "p_condition" : in_condition,
+            "p_corp_code" : in_corp_code,
             "p_min_growth": in_min_growth,
         }
   ).execute()
