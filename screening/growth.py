@@ -1,3 +1,19 @@
+def get_screen_financial_indicator( supabase, in_year, in_quarter, in_metric, in_condition, in_corp_code, in_min_growth ) :
+  
+  res = supabase.rpc(
+        "screen_financial_indicator",
+        {
+            "p_year": in_year,
+            "p_quarter": in_quarter,
+            "p_metric": in_metric,
+            "p_condition" : in_condition
+            "p_corp_code" : in_corp_code
+            "p_min_growth": in_min_growth,
+        }
+  ).execute()
+  return res.data
+
+
 def get_revenue_growth_yoy( supabase, in_year, in_growth_rate, in_corp_code ) :
   in_base_year = in_year - 1
   
