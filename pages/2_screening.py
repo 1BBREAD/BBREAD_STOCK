@@ -79,7 +79,7 @@ def render_result(result, title):
 # 버튼 영역
 # ---------------------------
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     if st.button("YoY 전년도 결산 대비"):
@@ -138,6 +138,22 @@ with col3:
                 result3,
                 f"QoQ {quarter}분기 전분기 대비 증가 데이터"
             )
+with col4 :
+    if st.button("TEST"):
+        result4 = growth.screen_financial_indicator(
+            client_db,
+            year,
+            quarter,
+            op_profit,
+            QOQ,
+            corp_code,
+            revenue_growth
+        )
+
+        render_result(
+                result4,
+                f"QoQ {quarter}분기 전분기 대비 영업이익 증가"
+        )
 
 
 # ---------------------------
