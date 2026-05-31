@@ -144,7 +144,7 @@ with col4 :
             client_db,
             year,
             quarter,
-            op_profit,
+            "op_profit",
             QOQ,
             corp_code,
             revenue_growth
