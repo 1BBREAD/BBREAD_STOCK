@@ -145,7 +145,7 @@ with col4 :
             year,
             quarter,
             "op_profit",
-            "QOQ",
+            "YOY",
             corp_code,
             revenue_growth
         )
