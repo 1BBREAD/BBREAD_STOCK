@@ -140,7 +140,7 @@ with col3:
             )
 with col4 :
     if st.button("TEST"):
-        result4 = growth.screen_financial_indicator(
+        result4 = growth.get_screen_financial_indicator(
             client_db,
             year,
             quarter,
